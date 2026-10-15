@@ -1,0 +1,3 @@
+import {test} from 'node:test';import assert from 'node:assert/strict';
+function quote(net,karat,ltv){const pure=Math.round(net*karat/24*10000)/10000;const paise=Math.round(pure*7000*100);return {pure,value:paise/100,loan:Math.floor(paise*ltv/100)}}
+test('22K, 45g EMI exact assignment result',()=>assert.deepEqual(quote(45,22,.75),{pure:41.25,value:288750,loan:216562}));test('22K, 45g bullet exact result',()=>assert.deepEqual(quote(45,22,.70),{pure:41.25,value:288750,loan:202125}));test('18K, 10g EMI exact result',()=>assert.deepEqual(quote(10,18,.75),{pure:7.5,value:52500,loan:39375}));test('LTV cannot exceed 75%',()=>assert.equal(quote(45,22,Math.min(.9,.75)).loan,216562));
